@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Packages - Homelab Diagnosis</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">Homelab Diagnosis</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="packages.html">Test Packages</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <button class="book-btn">Book Now</button>
+                <a href="cart.html" class="cart-link" aria-label="View Cart">
+                    <i class="fa fa-shopping-cart"></i> Cart
+                </a>
+            </nav>
+        </div>
+    </header>
+    <section class="packages">
+        <div class="container">
+            <h2>All Test Packages</h2>
+            <div class="package-list">
+                <div class="package-card">
+                    <h3>Full Body Checkup</h3>
+                    <p>Includes 80+ tests</p>
+                    <span class="price">₹999</span>
+                    <button class="book-btn" onclick="handleBook('Full Body Checkup')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Full Body Checkup', 999)">Add to Cart</button>
+                </div>
+                <div class="package-card">
+                    <h3>Diabetes Panel</h3>
+                    <p>Includes 10+ tests</p>
+                    <span class="price">₹499</span>
+                    <button class="book-btn" onclick="handleBook('Diabetes Panel')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Diabetes Panel', 499)">Add to Cart</button>
+                </div>
+                <div class="package-card">
+                    <h3>Liver Function Test</h3>
+                    <p>Includes 12 tests</p>
+                    <span class="price">₹399</span>
+                    <button class="book-btn" onclick="handleBook('Liver Function Test')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Liver Function Test', 399)">Add to Cart</button>
+                </div>
+                <!-- Add more packages as needed -->
+            </div>
+        </div>
+    </section>
+    <section class="lab-tests">
+        <div class="container">
+            <h2>All Lab Tests</h2>
+            <div class="lab-test-list">
+                <div class="lab-test-card">
+                    <img src="images/cbc-icon.png" alt="CBC Test Icon by Freepik" class="lab-test-img" />
+                    <h4>Complete Blood Count (CBC)</h4>
+                    <p>Measures different components of blood.<br>Price: ₹250</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('CBC')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('CBC', 250)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/lipid-icon.png" alt="Lipid Profile Icon by Freepik" class="lab-test-img" />
+                    <h4>Lipid Profile</h4>
+                    <p>Checks cholesterol and triglyceride levels.<br>Price: ₹350</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Lipid Profile')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Lipid Profile', 350)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/lft-icon.png" alt="Liver Function Test Icon by Freepik" class="lab-test-img" />
+                    <h4>Liver Function Test (LFT)</h4>
+                    <p>Assesses liver health.<br>Price: ₹399</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('LFT')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('LFT', 399)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/thyroid-icon.png" alt="Thyroid Profile Icon by Freepik" class="lab-test-img" />
+                    <h4>Thyroid Profile (T3, T4, TSH)</h4>
+                    <p>Evaluates thyroid function.<br>Price: ₹299</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Thyroid Profile')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Thyroid Profile', 299)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/vitd-icon.png" alt="Vitamin D Test Icon by Freepik" class="lab-test-img" />
+                    <h4>Vitamin D Test</h4>
+                    <p>Checks Vitamin D levels.<br>Price: ₹499</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Vitamin D Test')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Vitamin D Test', 499)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/kidney-icon.png" alt="Kidney Function Test Icon by Freepik" class="lab-test-img" />
+                    <h4>Kidney Function Test</h4>
+                    <p>Assesses kidney health.<br>Price: ₹599</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Kidney Function Test')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Kidney Function Test', 599)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/sugar-icon.png" alt="Blood Sugar Test Icon by Freepik" class="lab-test-img" />
+                    <h4>Blood Sugar (Fasting/PP)</h4>
+                    <p>Measures glucose levels.<br>Price: ₹199</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Blood Sugar')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Blood Sugar', 199)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/hba1c-icon.png" alt="HbA1c Test Icon by Freepik" class="lab-test-img" />
+                    <h4>HbA1c</h4>
+                    <p>Average blood sugar over 3 months.<br>Price: ₹299</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('HbA1c')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('HbA1c', 299)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/iron-icon.png" alt="Iron Studies Icon by Freepik" class="lab-test-img" />
+                    <h4>Iron Studies</h4>
+                    <p>Checks iron levels and binding.<br>Price: ₹350</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Iron Studies')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Iron Studies', 350)">Add to Cart</button>
+                </div>
+                <div class="lab-test-card">
+                    <img src="images/urine-icon.png" alt="Urine Routine Icon by Freepik" class="lab-test-img" />
+                    <h4>Urine Routine</h4>
+                    <p>Basic urine analysis.<br>Price: ₹150</p>
+                    <button class="book-btn animated-btn" onclick="handleBook('Urine Routine')">Book Now</button>
+                    <button class="cart-btn" onclick="addToCart('Urine Routine', 150)">Add to Cart</button>
+                </div>
+                <!-- Add more tests from your Excel sheet here, each with a unique image and alt text -->
+            </div>
+            <div class="copyright-icons">
+                <small>Icons &copy; Freepik & contributors. For demo only.</small>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Homelab Diagnosis. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        function handleBook(testName) {
+            // Redirect to registration page, pass test name as query param
+            window.location.href = "register.html?test=" + encodeURIComponent(testName);
+        }
+        function addToCart(testName, price) {
+            // Simple cart logic (localStorage)
+            let cart = JSON.parse(localStorage.getItem('cart') || "[]");
+            cart.push({ name: testName, price: price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(testName + " added to cart!");
+        }
+    </script>
+</body>
+</html>

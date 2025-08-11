@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Homelab Diagnosis</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .ad-banner {
+            background: linear-gradient(90deg, #ffe082 60%, #fffde7 100%);
+            color: #e65100;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            animation: ad-roll 10s linear infinite;
+        }
+        @keyframes ad-roll {
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .gold-suggestion {
+            background: linear-gradient(90deg, #ffd700 60%, #fffbe7 100%);
+            color: #b8860b;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 8px #ffd70044;
+        }
+        .gold-btn {
+            background: linear-gradient(90deg, #ffd700 60%, #e53935 100%);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            cursor: pointer;
+            animation: pulse 1.5s infinite, btn-bounce 2s infinite alternate;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.3);
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-content {
+            background: #fff;
+            border-radius: 14px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 8px 32px #039be5;
+            text-align: center;
+            max-width: 350px;
+            animation: fadeInUp 0.7s;
+        }
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: #e53935;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .reviews-section, .advice-section {
+            margin: 2rem 0;
+        }
+        .review-card, .advice-card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px #039be522;
+        }
+        .review-card strong {
+            color: #039be5;
+        }
+        .advice-card strong {
+            color: #43a047;
+        }
+        .add-review-btn {
+            background: linear-gradient(90deg, #039be5 60%, #43a047 100%);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-banner" id="adBanner">
+        Get 30% OFF on GOLD Membership! Free home sample collection & priority doctor advice.
+    </div>
+    <section class="cart-section">
+        <div class="container">
+            <h2>Your Cart</h2>
+            <div id="cartList" class="cart-list"></div>
+            <div id="cartTotal" class="cart-total"></div>
+            <div class="gold-suggestion">
+                <span>Become a <strong>GOLD Member</strong> for just <span style="color:#e53935;">₹299/year</span> and save up to <span style="color:#43a047;">50%</span> on every test!</span>
+                <br>
+                <button class="gold-btn" onclick="showGoldPopup()">Apply GOLD Membership</button>
+            </div>
+            <button id="checkoutBtn" class="book-btn animated-btn" style="margin-top:2rem;">Proceed to Registration</button>
+        </div>
+    </section>
+    <section class="reviews-section container">
+        <h3>Patient Reviews</h3>
+        <div class="review-card"><strong>Priya S:</strong> Fast service and accurate reports. Highly recommended!</div>
+        <div class="review-card"><strong>Rahul M:</strong> Loved the home collection. GOLD membership is worth it!</div>
+        <div class="review-card"><strong>Dr. Neha:</strong> Reliable lab partners and great support team.</div>
+        <button class="add-review-btn" onclick="showReviewPopup()">Add Your Review</button>
+    </section>
+    <section class="advice-section container">
+        <h3>Doctor's Advice</h3>
+        <div class="advice-card"><strong>Dr. Sharma:</strong> Regular health checkups help detect issues early. Book your tests today!</div>
+        <div class="advice-card"><strong>Dr. Patel:</strong> For diabetes, monitor HbA1c and lipid profile every 3 months.</div>
+    </section>
+    <div class="popup" id="goldPopup">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closeGoldPopup()">&times;</span>
+            <h3>GOLD Membership Benefits</h3>
+            <ul style="text-align:left;">
+                <li>Up to 50% discount on all tests</li>
+                <li>Free home sample collection</li>
+                <li>Priority doctor advice</li>
+                <li>Exclusive offers & health tips</li>
+            </ul>
+            <button class="gold-btn" onclick="applyGold()">Activate GOLD Membership for ₹299</button>
+        </div>
+    </div>
+    <div class="popup" id="reviewPopup">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closeReviewPopup()">&times;</span>
+            <h3>Add Your Review</h3>
+            <textarea id="newReview" rows="3" style="width:100%;margin-bottom:1rem;" placeholder="Write your review..."></textarea>
+            <button class="add-review-btn" onclick="submitReview()">Submit</button>
+        </div>
+    </div>
+    <script>
+        // Ad banner rolling suggestion
+        const ads = [
+            "Get 30% OFF on GOLD Membership! Free home sample collection & priority doctor advice.",
+            "Refer a friend and earn ₹100 cashback on your next booking!",
+            "Book 2 tests, get 1 free consultation with our doctors.",
+            "Fastest home sample collection in your city. Try now!"
+        ];
+        let adIdx = 0;
+        setInterval(() => {
+            adIdx = (adIdx + 1) % ads.length;
+            document.getElementById('adBanner').textContent = ads[adIdx];
+        }, 7000);
+
+        // Cart logic
+        function renderCart() {
+            let cart = JSON.parse(localStorage.getItem('cart') || "[]");
+            const cartList = document.getElementById('cartList');
+            const cartTotal = document.getElementById('cartTotal');
+            let gold = localStorage.getItem('goldMember') === "true";
+            if(cart.length === 0) {
+                cartList.innerHTML = "<p>Your cart is empty.</p>";
+                cartTotal.innerHTML = "";
+                document.getElementById('checkoutBtn').style.display = "none";
+                return;
+            }
+            let html = "<ul>";
+            let total = 0;
+            cart.forEach((item, idx) => {
+                let price = gold ? Math.round(item.price * 0.7) : item.price;
+                html += `<li>
+                    <strong>${item.name}</strong> - ₹${price}
+                    <button onclick="removeFromCart(${idx})" class="cart-btn" style="margin-left:10px;">Remove</button>
+                </li>`;
+                total += price;
+            });
+            html += "</ul>";
+            cartList.innerHTML = html;
+            cartTotal.innerHTML = gold
+                ? `<strong>Total (GOLD Member): ₹${total} <span style="color:#ffd700;">(30% OFF)</span></strong>`
+                : `<strong>Total: ₹${total}</strong>`;
+            document.getElementById('checkoutBtn').style.display = "inline-block";
+        }
+        function removeFromCart(idx) {
+            let cart = JSON.parse(localStorage.getItem('cart') || "[]");
+            cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+        document.getElementById('checkoutBtn').onclick = function() {
+            let cart = JSON.parse(localStorage.getItem('cart') || "[]");
+            if(cart.length > 0) {
+                window.location.href = "register.html?test=" + encodeURIComponent(cart[0].name);
+            }
+        };
+
+        // GOLD Membership popup logic
+        function showGoldPopup() {
+            document.getElementById('goldPopup').style.display = "flex";
+        }
+        function closeGoldPopup() {
+            document.getElementById('goldPopup').style.display = "none";
+        }
+        function applyGold() {
+            localStorage.setItem('goldMember', "true");
+            closeGoldPopup();
+            renderCart();
+            alert("Congratulations! You are now a GOLD Member. Discounts applied.");
+        }
+
+        // Review popup logic
+        function showReviewPopup() {
+            document.getElementById('reviewPopup').style.display = "flex";
+        }
+        function closeReviewPopup() {
+            document.getElementById('reviewPopup').style.display = "none";
+        }
+        function submitReview() {
+            let txt = document.getElementById('newReview').value.trim();
+            if(txt) {
+                let div = document.createElement('div');
+                div.className = "review-card";
+                div.innerHTML = `<strong>You:</strong> ${txt}`;
+                document.querySelector('.reviews-section').appendChild(div);
+                closeReviewPopup();
+                document.getElementById('newReview').value = "";
+            }
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>

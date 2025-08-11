@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Homelab Diagnosis</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <section class="register-section">
+        <div class="container">
+            <h2>Register to Book Your Test</h2>
+            <form id="registerForm" class="register-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Mobile Number</label>
+                    <input type="tel" id="phone" name="phone" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="test">Selected Test</label>
+                    <input type="text" id="test" name="test" readonly>
+                </div>
+                <button type="submit" class="book-btn animated-btn">Register & Book</button>
+            </form>
+            <div id="registerSuccess" style="display:none; margin-top:2rem; color:green;">
+                Registration successful! We will contact you soon.
+            </div>
+        </div>
+    </section>
+    <script>
+        // Autofill test name from query param
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const test = urlParams.get('test');
+            if(test) document.getElementById('test').value = test;
+        };
+        // Simple registration handler
+        document.getElementById('registerForm').onsubmit = function(e) {
+            e.preventDefault();
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('registerSuccess').style.display = 'block';
+            // Here you would send data to your backend
+        };
+    </script>
+</body>
+</html>
